@@ -1,0 +1,82 @@
+<!DOCTYPE HTML><html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- define the style CSS of your page -->
+  <style>
+    html {font-family: Arial; display: inline-block; text-align: center;}
+    .p {font-size: 1.2rem; margin:auto; }
+    .h1{margin: auto; padding-bottom: 50px;}
+    .p2 {font-size: 1.2rem;}
+    .p3 {font-size: 17px; margin-right: 4px;}
+    .p4 {font-size: 14px; margin-top: 3px;}
+    .table{margin: auto}
+    .form{ border:none; padding: 10px;}
+    .body {max-width: 700px; margin:auto; padding-bottom: 30px;}
+    .slider { -webkit-appearance: none; margin: 5px; width: 400px; height: 15px; border-radius: 5px; background: #39a6de; outline: none; -webkit-transition: .2s; transition: opacity .2s;}
+    .slider::-webkit-slider-thumb {-webkit-appearance: none; appearance: none; width: 25px; height: 25px; border-radius: 12px; background: #f74d4d; cursor: pointer;}
+    .slider::-moz-range-thumb { width: 25px; height: 25px; border-radius: 12px; background: #F74D4D; cursor: pointer; } 
+  </style>
+</head>
+ 
+<body class="body">
+    <h1>Kocham mojego szwagra</h1>
+    <form>
+        <fieldset class="form">
+            <input type="radio"  name="led" value="on"  placeholder="włącznik"><a class="p3">Włącz</a>
+            <input type="radio"  name="led" value="off"  placeholder="włącznik"><a class="p3">Wyłącz</a>
+        </fieldset>
+    </form>
+<Table class="table">
+    <tr> 
+       <td>
+          <form>
+            <fieldset class="form">
+                <a class="p3">Wyłącz o:</a>
+                <input type="time" step="any" class="p4">
+            </fieldset>
+         </form>
+        </td> 
+        <td> 
+         <form>
+                <fieldset class="form">
+                    <a class="p3">Włącz o:</a>
+                    <input type="time" step="any" class="p4">
+                </fieldset>
+         </form>
+        </td> 
+    </tr>
+</Table>
+    
+
+    
+<table class="table">  
+  <tr>
+    <td class="p" scope="row">LED 1:</td> 
+    <td><input type="range" onchange="updateSliderPWM(this, 'pwmSlider1')" id="pwmSlider1" min="0" max="100" value="%SLIDERVALUE1%" step="0.1" class="slider"></td> 
+    <td class="p2"><span id="textpwmSlider1">%SLIDERVALUE1%</span>&#37</td>
+</tr>
+
+
+<tr>
+  <td class="p">LED 2:</td> 
+  <td class="p"><input type="range" onchange="updateSliderPWM(this, 'pwmSlider2')" id="pwmSlider2" min="0" max="100" value="%SLIDERVALUE2%" step="0.1" class="slider"></td>
+  <td class="p"><span id="textpwmSlider2">%SLIDERVALUE2%</span>&#37</td>
+</tr>
+</table>  
+
+
+
+
+<script>
+function updateSliderPWM(element, pwmname) {
+  var pwmSliderValue = document.getElementById(pwmname).value;
+  document.getElementById("text" + pwmname).innerHTML = pwmSliderValue;
+  console.log(pwmSliderValue);
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.open("GET", "/"+ pwmname + "?value="+pwmSliderValue, true);
+  httpRequest.send();
+}
+</script>
+</body>
+</html>
+
